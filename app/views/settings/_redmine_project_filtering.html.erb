@@ -1,0 +1,13 @@
+<fieldset>
+  <%= content_tag(:legend, l(:project_filtering_text_configuration)) %>
+  
+  <% @project_custom_fields.each do |field| %>
+    <% checked = @settings['project_filtering_used_fields'][field.name].present? %>
+    <% dom_name = "settings[project_filtering_used_fields][#{field.name}]" %>
+    <p>
+    <%= label_tag dom_name, field.name %>
+    <%= check_box_tag dom_name, checked ? 1 : 0, checked %>
+    </p>
+  <% end %>
+
+</fieldset>
