@@ -1,18 +1,9 @@
 require 'redmine'
 
-=begin
-require 'redmine_sympa/hooks/project_hooks'
 
-require 'dispatcher'
-Dispatcher.to_prepare :redmine_sympa do
-  require_dependency 'project'
-  require_dependency 'enabled_module'
+# will not work on development mode
+require 'settings_controller_patch'
 
-  Project.send(:include, RedmineSympa::Patches::ProjectPatch)
-  EnabledModule.send(:include, RedmineSympa::Patches::EnabledModulePatch)
-
-end
-=end
 
 Redmine::Plugin.register :redmine_project_filtering do
   name 'Redmine Project filtering plugin'
@@ -23,7 +14,7 @@ Redmine::Plugin.register :redmine_project_filtering do
   settings({
     :partial => 'settings/redmine_project_filtering',
     :default => {
-      # 'redmine_project_filtering_blah' => 'blah'
+      'project_filtering_used_fields' => {}
     }
   })
 
