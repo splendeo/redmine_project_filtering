@@ -3,7 +3,7 @@
   
   <% @project_custom_fields.each do |field| %>
     <p>
-    <% plugin_settings = @settings['project_filtering_used_fields'] %>
+    <% plugin_settings = @settings[:project_filtering_used_fields] %>
     <% dom_id = "settings[project_filtering_used_fields][#{field.id}]" %>
     <%= label_tag dom_id, field.name %>
     <% checked = plugin_settings.present? && plugin_settings[field.id.to_s].present?  %>
