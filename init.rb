@@ -3,6 +3,8 @@ require 'redmine'
 
 # will not work on development mode
 require 'settings_controller_patch'
+require 'with_custom_values'
+require 'project_patch'
 
 
 Redmine::Plugin.register :redmine_project_filtering do
