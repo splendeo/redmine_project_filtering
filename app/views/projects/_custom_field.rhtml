@@ -1,0 +1,5 @@
+<%= select_tag(custom_field.name, 
+      options_from_collection_for_select([nil] + custom_field.possible_values, 'to_s', 'to_s'),
+      :include_blank => true
+    )
+%>

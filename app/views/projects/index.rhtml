@@ -18,7 +18,7 @@
       <%= text_field_tag 'q', @question, :size => 60, :id => 'search-input' %>
       <%= javascript_tag "Field.focus('search-input')" %>
       
-      
+      <%= render :partial => 'custom_field', :collection => @custom_fields %>
       
     <% end %>
   </p>
