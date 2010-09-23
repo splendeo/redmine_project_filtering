@@ -5,6 +5,7 @@ require 'redmine'
 require 'settings_controller_patch'
 require 'with_custom_values'
 require 'project_patch'
+require 'custom_field_patch'
 
 
 Redmine::Plugin.register :redmine_project_filtering do

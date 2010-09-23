@@ -18,11 +18,7 @@ module SettingsControllerPatch
         @project_custom_fields = CustomField.all(
           :conditions => [ 
             "custom_fields.type = 'ProjectCustomField' AND " +
-            "( custom_fields.field_format IN (?) OR " +
-            "  ( custom_fields.field_format IN (?) AND custom_fields.searchable = ? ) " +
-            ")",
-            ['bool', 'date'],
-            ['string', 'text', 'list'],
+            "custom_fields.field_format == 'list' AND custom_fields.searchable = ? ",
             true
           ],
           :order => 'custom_fields.position ASC'
