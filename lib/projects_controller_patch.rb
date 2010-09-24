@@ -7,6 +7,7 @@ module ProjectsControllerPatch
 
     base.class_eval do
       before_filter :calculate_custom_fields, :only => :index
+      before_filter :calculate_project_filtering_settings, :only => :index
     end
 
   end
@@ -15,6 +16,10 @@ module ProjectsControllerPatch
 
     def calculate_custom_fields
       @custom_fields = CustomField.used_for_project_filtering
+    end
+    
+    def calculate_project_filtering_settings
+      @project_filtering_settings = Setting[:plugin_redmine_project_filtering]
     end
 
   end

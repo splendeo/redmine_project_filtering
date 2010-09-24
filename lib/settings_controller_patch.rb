@@ -6,23 +6,16 @@ module SettingsControllerPatch
     base.send(:include, InstanceMethods)
 
     base.class_eval do
-      before_filter :calculate_project_custom_fields, :only => :plugin
+      before_filter :calculate_custom_fields_usable_for_project_filtering, :only => :plugin
     end
 
   end
 
   module InstanceMethods
   
-    def calculate_project_custom_fields
+    def calculate_custom_fields_usable_for_project_filtering
       if params[:id] == 'redmine_project_filtering'
-        @project_custom_fields = CustomField.all(
-          :conditions => [ 
-            "custom_fields.type = 'ProjectCustomField' AND " +
-            "custom_fields.field_format == 'list' AND custom_fields.searchable = ? ",
-            true
-          ],
-          :order => 'custom_fields.position ASC'
-        )
+        @project_custom_fields = CustomField.usable_for_project_filtering
       end
     end
 

@@ -18,7 +18,13 @@ Redmine::Plugin.register :redmine_project_filtering do
   settings({
     :partial => 'settings/redmine_project_filtering',
     :default => {
-      'project_filtering_used_fields' => {}
+      'used_fields' => {},
+      'css' => "
+#project_filtering label { display: block; }
+#project_filtering div { float: left; }
+#project_filtering div.q { width: 25em; }
+#project_filtering div.custom_field { width: 10em; }
+"
     }
   })
 

@@ -1,5 +1,8 @@
 <% content_for :header_tags do %>
     <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
+    <style  TYPE="text/css">
+      <%= @project_filtering_settings[:css] %>
+    </style>
 <% end %>
 
 <div class="contextual">
@@ -12,16 +15,18 @@
 <h2><%=l(:label_project_plural)%></h2>
 
 
+
 <div class="box">
-  <p>
-    <% form_tag({}, :method => :get) do %>
-      <%= text_field_tag 'q', @question, :size => 60, :id => 'search-input' %>
-      <%= javascript_tag "Field.focus('search-input')" %>
-      
-      <%= render :partial => 'custom_field', :collection => @custom_fields %>
-      
-    <% end %>
-  </p>
+  <% form_tag({}, :method => :get, :id => :project_filtering) do %>
+    <div class='q'>
+      <%= label_tag 'q', l('project_filtering_filter_field') %>
+      <%= text_field_tag 'q', @question, :size => 30, :id => 'search-input' %>
+    </div>
+    <%= javascript_tag "Field.focus('search-input')" %>
+    
+    <%= render :partial => 'custom_field', :collection => @custom_fields %>
+  <% end %>
+  <div class='clear'></div>
 </div>
 
 <ul class='projects root'>
