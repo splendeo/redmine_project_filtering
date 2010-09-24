@@ -1,5 +1,6 @@
 <% content_for :header_tags do %>
     <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
+    <!-- Edit the following styles in Settings / Plugins / redmine_project_filtering -->
     <style  TYPE="text/css">
       <%= @project_filtering_settings[:css] %>
     </style>
@@ -14,20 +15,22 @@
 
 <h2><%=l(:label_project_plural)%></h2>
 
+<% form_tag('/projects', :method => :get, :id => :project_filtering) do %>
 
-
-<div class="box">
-  <% form_tag({}, :method => :get, :id => :project_filtering) do %>
-    <div class='q'>
-      <%= label_tag 'q', l('project_filtering_filter_field') %>
-      <%= text_field_tag 'q', @question, :size => 30, :id => 'search-input' %>
+  <fieldset id="filters" class="collapsible">
+    <legend onclick="toggleFieldset(this);"><%= l(:label_filter_plural) %></legend>
+    <div>
+      <p class='q'>
+        <%= label_tag 'q', l('project_filtering_q_label') %>
+        <%= text_field_tag 'q', @question, :size => 30, :id => 'search-input' %>
+      </p>
+      <%= render :partial => 'custom_field', :collection => @custom_fields_used_for_project_filtering %>
+      <p class='buttons'><%= submit_tag l(:button_send) -%></p>
     </div>
-    <%= javascript_tag "Field.focus('search-input')" %>
-    
-    <%= render :partial => 'custom_field', :collection => @custom_fields %>
-  <% end %>
-  <div class='clear'></div>
-</div>
+  </fieldset>
+
+<% end %>
+<%= javascript_tag "Field.focus('search-input')" %>
 
 <ul class='projects root'>
   <%= render :partial => 'project', :collection => @projects %>

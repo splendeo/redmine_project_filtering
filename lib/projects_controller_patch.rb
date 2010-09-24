@@ -8,6 +8,7 @@ module ProjectsControllerPatch
     base.class_eval do
       before_filter :calculate_custom_fields, :only => :index
       before_filter :calculate_project_filtering_settings, :only => :index
+      alias_method_chain :index, :project_filtering
     end
 
   end
@@ -15,11 +16,42 @@ module ProjectsControllerPatch
   module InstanceMethods
 
     def calculate_custom_fields
-      @custom_fields = CustomField.used_for_project_filtering
+      @custom_fields_used_for_project_filtering = CustomField.used_for_project_filtering
     end
     
     def calculate_project_filtering_settings
       @project_filtering_settings = Setting[:plugin_redmine_project_filtering]
+    end
+    
+    def index_with_project_filtering
+      respond_to do |format|
+        format.any(:html, :xml) { 
+          @projects = Project.visible
+          
+          @question = params[:q]
+          if params[:custom_fields].blank?
+            @custom_fields = {}
+          else
+            @custom_fields = params[:custom_fields]
+          end
+          
+
+          unless @custom_fields.empty?
+            @projects = @projects.with_custom_values(params[:custom_fields])
+          end
+
+          if @question.present?
+            @projects = @projects.search(params[:q]).first
+          else
+            @projects = @projects.all(:order => 'lft')
+          end
+        }
+        format.atom {
+          projects = Project.visible.find(:all, :order => 'created_on DESC',
+                                                :limit => Setting.feeds_limit.to_i)
+          render_feed(projects, :title => "#{Setting.app_title}: #{l(:label_project_latest)}")
+        }
+      end
     end
 
   end

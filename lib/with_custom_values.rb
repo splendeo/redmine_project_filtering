@@ -13,9 +13,11 @@ module WithCustomValues
           values = []
           
           fields.each do|key, value|
-            strings << "(custom_values.custom_field_id = ? AND custom_values.value = ?)"
-            values << key
-            values << value
+            if(value.present?)
+              strings << "(custom_values.custom_field_id = ? AND custom_values.value = ?)"
+              values << key.to_i
+              values << value
+            end
           end
         
           { :include => :custom_values, 

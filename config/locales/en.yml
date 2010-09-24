@@ -1,5 +1,5 @@
 # English strings go here
 en:
   project_filtering_text_configuration: "Configuration"
-  project_filtering_filter_field: "Filter Projects"
+  project_filtering_q_label: "Textual search"
   project_filtering_css_label: "CSS rules"
