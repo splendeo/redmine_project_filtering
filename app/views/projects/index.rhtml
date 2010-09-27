@@ -34,9 +34,8 @@
 <%= observe_form( :project_filtering,
   :frequency => 0.5,
   :url => { :controller => :projects, :action => :index, :format => :js },
-  :method => :get,
-  :loading => "$('ajax-indicator').show()",
-  :complete => "$('ajax-indicator').hide()")
+  :method => :get
+  )
 %>
 
 <ul class='projects root' id='projects'>
