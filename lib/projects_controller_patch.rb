@@ -26,24 +26,12 @@ module ProjectsControllerPatch
     def index_with_project_filtering
       respond_to do |format|
         format.any(:html, :xml) { 
-          @projects = Project.visible
-          
-          @question = params[:q]
-          if params[:custom_fields].blank?
-            @custom_fields = {}
-          else
-            @custom_fields = params[:custom_fields]
-          end
-          
-
-          unless @custom_fields.empty?
-            @projects = @projects.with_custom_values(params[:custom_fields])
-          end
-
-          if @question.present?
-            @projects = @projects.search(params[:q]).first
-          else
-            @projects = @projects.all(:order => 'lft')
+          calculate_filtered_projects
+        }
+        format.js {
+          calculate_filtered_projects
+          render :update do |page|
+            page.replace_html 'projects', :partial => 'project', :collection => @projects
           end
         }
         format.atom {
@@ -51,6 +39,29 @@ module ProjectsControllerPatch
                                                 :limit => Setting.feeds_limit.to_i)
           render_feed(projects, :title => "#{Setting.app_title}: #{l(:label_project_latest)}")
         }
+      end
+    end
+    
+    private
+    
+    def calculate_filtered_projects
+      @projects = Project.visible
+      
+      @question = params[:q]
+      if params[:custom_fields].blank?
+        @custom_fields = {}
+      else
+        @custom_fields = params[:custom_fields]
+      end
+
+      unless @custom_fields.empty?
+        @projects = @projects.with_custom_values(params[:custom_fields])
+      end
+
+      if @question.present?
+        @projects = @projects.search(params[:q]).first
+      else
+        @projects = @projects.all(:order => 'lft')
       end
     end
 

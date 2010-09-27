@@ -31,8 +31,15 @@
 
 <% end %>
 <%= javascript_tag "Field.focus('search-input')" %>
+<%= observe_form( :project_filtering,
+  :frequency => 0.5,
+  :url => { :controller => :projects, :action => :index, :format => :js },
+  :method => :get,
+  :loading => "$('ajax-indicator').show()",
+  :complete => "$('ajax-indicator').hide()")
+%>
 
-<ul class='projects root'>
+<ul class='projects root' id='projects'>
   <%= render :partial => 'project', :collection => @projects %>
 </ul>
 
