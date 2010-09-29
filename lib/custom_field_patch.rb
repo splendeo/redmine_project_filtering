@@ -6,7 +6,8 @@ module CustomFieldPatch
     
     base.class_eval do      
       named_scope( :used_for_project_filtering, lambda do |*args|
-        used_fields = Setting[:plugin_redmine_project_filtering][:used_fields].keys.collect(&:to_i)
+        used_field_setting = Setting[:plugin_redmine_project_filtering][:used_fields] || {}
+        used_fields = used_field_setting.keys.collect(&:to_i)
         { :conditions  => [ "custom_fields.type = 'ProjectCustomField' 
                              AND custom_fields.field_format = 'list' 
                              AND custom_fields.id IN (?)", used_fields ] }
