@@ -30,9 +30,10 @@ module CustomFieldPatch
   
     def configure_use_in_project_filtering
       if(self.type == 'ProjectCustomField' and field_format=='list')
-        value = Setting[:plugin_redmine_project_filtering][:used_fields]
-        value[self.id.to_s] = "1"
-        Setting[:plugin_redmine_project_filtering] = { :used_fields => value }
+        plugin_settings = Setting[:plugin_redmine_project_filtering]
+        plugin_settings[:used_fields] ||= {}
+        plugin_settings[:used_fields][self.id.to_s] = "1"
+        Setting[:plugin_redmine_project_filtering] = plugin_settings
       end
     end
   
