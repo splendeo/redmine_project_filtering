@@ -47,17 +47,13 @@ module ProjectsControllerPatch
     def calculate_filtered_projects
       @projects = Project.visible
       
-      @question = params[:q]
-      if params[:custom_fields].blank?
-        @custom_fields = {}
-      else
-        @custom_fields = params[:custom_fields]
-      end
+      @custom_fields = params[:custom_fields] || {}
 
       unless @custom_fields.empty?
         @projects = @projects.with_custom_values(params[:custom_fields])
       end
 
+      @question = params[:q]
       if @question.present?
         @projects = @projects.search(params[:q]).first
       else
