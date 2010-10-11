@@ -38,9 +38,9 @@
   )
 %>
 
-<ul class='projects root' id='projects'>
-  <%= render :partial => 'project', :collection => @projects %>
-</ul>
+<div id="projects">
+<%= render_project_hierarchy(@projects) %>
+</div>
 
 <% if User.current.logged? %>
 <p style="text-align:right;">

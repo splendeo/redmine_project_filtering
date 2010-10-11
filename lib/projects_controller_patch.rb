@@ -31,7 +31,7 @@ module ProjectsControllerPatch
         format.js {
           calculate_filtered_projects
           render :update do |page|
-            page.replace_html 'projects', :partial => 'project', :collection => @projects
+            page.replace_html 'projects', render_project_hierarchy(@projects)
           end
         }
         format.atom {
