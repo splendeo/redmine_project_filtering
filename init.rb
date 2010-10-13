@@ -23,7 +23,7 @@ Redmine::Plugin.register :redmine_project_filtering do
       'css' => "
 #project_filtering label { display: block; }
 #project_filtering p { float: left; }
-#project_filtering p.q { width: 25em; }
+#project_filtering p.q { width: 30em; }
 #project_filtering p.custom_field { width: 10em; }
 #project_filtering p.buttons { clear: both; with: 100%; float: none; }
 
