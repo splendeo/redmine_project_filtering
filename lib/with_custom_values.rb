@@ -11,16 +11,19 @@ module WithCustomValues
           
           strings = []
           values = []
+          joins = []
           
           fields.each do|key, value|
             if(value.present?)
-              strings << "(custom_values.custom_field_id = ? AND custom_values.value = ?)"
+              table_name = "custom_values_filtering_on_#{key}"
+              strings << "(#{table_name}.custom_field_id = ? AND #{table_name}.value = ?)"
               values << key.to_i
               values << value
+              joins << "left join custom_values #{table_name} on #{table_name}.customized_id = projects.id"
             end
           end
         
-          { :include => :custom_values, 
+          { :joins => joins.join(' '), 
             :conditions => [strings.join(' AND '), *values]
           }
         end
