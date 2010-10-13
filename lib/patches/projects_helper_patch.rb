@@ -69,21 +69,16 @@ module ProjectsHelperPatch
       tokens.select {|w| w.length > 1 }
     end
     
-    # copied from search_helper. But it doesn't escape 
+    # copied from search_helper. This one doesn't escape html or limit the text length
     def highlight_tokens(text, tokens)
       return text unless text && tokens && !tokens.empty?
       re_tokens = tokens.collect {|t| Regexp.escape(t)}
       regexp = Regexp.new "(#{re_tokens.join('|')})", Regexp::IGNORECASE    
       result = ''
       text.split(regexp).each_with_index do |words, i|
-        if result.length > 1200
-          # maximum length of the preview reached
-          result << '...'
-          break
-        end
         words = words.mb_chars
         if i.even?
-          result << (words.length > 100 ? "#{words.slice(0..44)} ... #{words.slice(-45..-1)}" : words)
+          result << words
         else
           t = (tokens.index(words.downcase) || 0) % 4
           result << content_tag('span', words, :class => "highlight token-#{t}")
