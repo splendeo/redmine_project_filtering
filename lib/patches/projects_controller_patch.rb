@@ -31,7 +31,7 @@ module ProjectsControllerPatch
         format.js {
           calculate_filtered_projects
           render :update do |page|
-            page.replace_html 'projects', render_project_hierarchy_with_filtering(@projects)
+            page.replace_html 'projects', render_project_hierarchy_with_filtering(@projects, @custom_fields, @question)
           end
         }
         format.atom {
@@ -54,7 +54,7 @@ module ProjectsControllerPatch
       end
 
       @question = params[:q]
-      if @question.present?
+      if @question.present? and @question.length > 1
         @projects = @projects.search(params[:q]).first
       else
         @projects = @projects.all(:order => 'lft')
