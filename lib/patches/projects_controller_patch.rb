@@ -55,7 +55,7 @@ module ProjectsControllerPatch
 
       @question = params[:q]
       if @question.present? and @question.length > 1
-        @projects = @projects.search(params[:q]).first
+        @projects = @projects.search(params[:q]).first.sort_by(&:lft)
       else
         @projects = @projects.all(:order => 'lft')
       end
