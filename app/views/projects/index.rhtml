@@ -25,12 +25,14 @@
         <%= text_field_tag 'q', @question, :size => 30, :id => 'search-input' %>
       </p>
       <%= render :partial => 'custom_field', :collection => @custom_fields_used_for_project_filtering %>
-      <p class='buttons'><%= submit_tag l(:button_send) -%></p>
+      <p class='buttons'><%= submit_tag( l(:button_send), :id => 'filter_button') -%></p>
     </div>
   </fieldset>
 
 <% end %>
-<%= javascript_tag "Field.focus('search-input')" %>
+
+<%= javascript_tag "Field.focus('search-input');" %>
+<%= javascript_tag "$('filter_button').hide();" %>
 <%= observe_form( :project_filtering,
   :frequency => 0.5,
   :url => { :controller => :projects, :action => :index, :format => :js },
