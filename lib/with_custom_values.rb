@@ -29,6 +29,7 @@ module WithCustomValues
             { :joins => joins.join(' '), 
               :conditions => [strings.join(' AND '), *values]
             }
+          end
         end
       )
 
