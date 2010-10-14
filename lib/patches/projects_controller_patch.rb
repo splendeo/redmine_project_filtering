@@ -56,7 +56,7 @@ module ProjectsControllerPatch
       @question = params[:q] || ""
       @question.strip!
       if @question.length > 1
-        @projects = @projects.search(calculate_tokens(@question), nil, :all_words => false).first.sort_by(&:lft)
+        @projects = @projects.search(calculate_tokens(@question), nil, :all_words => true).first.sort_by(&:lft)
       else
         @projects = @projects.all(:order => 'lft')
       end
