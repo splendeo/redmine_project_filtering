@@ -13,7 +13,7 @@ module ProjectsHelperPatch
     def render_project_hierarchy_with_filtering(projects,custom_fields,question)
       s = []
       if projects.any?
-        tokens = calculate_tokens(custom_fields, question)
+        tokens = calculate_tokens(question, custom_fields)
         ancestors = []
         original_project = @project
         projects.each do |project|
@@ -60,8 +60,11 @@ module ProjectsHelperPatch
     
     private
     
-    def calculate_tokens(custom_fields, question)
-      list = custom_fields.values
+    def calculate_tokens(question, custom_fields)
+      list = []
+      if custom_fields.present?
+        list << custom_fields.values
+      end
       list << question if question.present?
 
       tokens = list.join(' ').scan(%r{((\s|^)"[\s\w]+"(\s|$)|\S+)}).collect {|m| m.first.gsub(%r{(^\s*"\s*|\s*"\s*$)}, '')}
