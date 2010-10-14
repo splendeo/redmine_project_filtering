@@ -19,13 +19,16 @@ module WithCustomValues
               strings << "(#{table_name}.custom_field_id = ? AND #{table_name}.value = ?)"
               values << key.to_i
               values << value
-              joins << "left join custom_values #{table_name} on #{table_name}.customized_id = projects.id"
+              joins << "left join custom_values #{table_name} on #{table_name}.customized_id = #{base.table_name}.id"
             end
           end
         
-          { :joins => joins.join(' '), 
-            :conditions => [strings.join(' AND '), *values]
-          }
+          if strings.length == 0
+            { :conditions => true }
+          else
+            { :joins => joins.join(' '), 
+              :conditions => [strings.join(' AND '), *values]
+            }
         end
       )
 

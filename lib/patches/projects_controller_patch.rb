@@ -53,9 +53,9 @@ module ProjectsControllerPatch
         @projects = @projects.with_custom_values(params[:custom_fields])
       end
 
-      @question = params[:q]
-      if @question.present? and @question.length > 1
-        @projects = @projects.search(params[:q]).first.sort_by(&:lft)
+      @question = params[:q].present? ? params[:q].strip : ""
+      if @question.length > 1
+        @projects = @projects.search(@question, :all_words => false).first.sort_by(&:lft)
       else
         @projects = @projects.all(:order => 'lft')
       end
