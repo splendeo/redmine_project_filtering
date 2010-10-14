@@ -60,7 +60,7 @@ module ProjectsHelperPatch
     
     private
     
-    def calculate_tokens(question, custom_fields)
+    def calculate_tokens(question, custom_fields=nil)
       list = []
       if custom_fields.present?
         list << custom_fields.values
