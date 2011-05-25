@@ -1,9 +1,6 @@
 <% content_for :header_tags do %>
     <%= auto_discovery_link_tag(:atom, {:action => 'index', :format => 'atom', :key => User.current.rss_key}) %>
-    <!-- Edit the following styles in Settings / Plugins / redmine_project_filtering -->
-    <style  TYPE="text/css">
-      <%= @project_filtering_settings[:css] %>
-    </style>
+    <%= stylesheet_link_tag "redmine_project_filtering.css", :plugin => "redmine_project_filtering" %>
 <% end %>
 
 <div class="contextual">
