@@ -1,13 +1,36 @@
 require 'redmine'
 
+Dispatcher.to_prepare :featured_projects do
+
+  require_dependency 'redmine_project_filtering/with_custom_values'
+
+  require_dependency 'projects_helper'
+  ProjectsHelper.send(:include, RedmineProjectFiltering::Patches::ProjectsHelperPatch)
+  
+  require_dependency 'custom_field'
+  CustomField.send(:include, RedmineProjectFiltering::Patches::CustomFieldPatch)
+  
+  require_dependency 'project'
+  Project.send(:include, RedmineProjectFiltering::Patches::ProjectPatch)
+  
+  require_dependency 'projects_controller'
+  ProjectsController.send(:include, RedmineProjectFiltering::Patches::ProjectsControllerPatch)
+  
+  require_dependency 'settings_controller'
+  SettingsController.send(:include, RedmineProjectFiltering::Patches::SettingsControllerPatch)
+
+
+
+#  require_dependency 'welcome_controller'
+#  unless WelcomeController.included_modules.include? FeaturedProjects::Patches::WelcomeControllerPatch
+#    WelcomeController.send(:include, FeaturedProjects::Patches::WelcomeControllerPatch)
+#  end
+
+end
 
 # will not work on development mode
-require 'with_custom_values'
-require 'patches/projects_helper_patch'
-require 'patches/custom_field_patch'
-require 'patches/project_patch'
-require 'patches/projects_controller_patch'
-require 'patches/settings_controller_patch'
+
+
 
 
 Redmine::Plugin.register :redmine_project_filtering do
