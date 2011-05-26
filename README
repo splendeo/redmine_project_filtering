@@ -1,1 +1,41 @@
-Warning: WIP. Not ready for production usage at all
+== Redmine/Chiliproject Project Filtering Plugin
+
+This plugin adds a "filtering text box" on the projects/index screen.
+
+In addition to text-based search, it's possible to add additional filters (see below).
+
+This plugin can be used in conjunction with the Featured Projects plugin ( https://github.com/splendeo/featured_projects )
+
+If this plugin is detected, projects marked as "featured" will appear first, on a box, followed by the rest of the projects.
+
+== Adding filters
+
+Filters can be added via Custom Fields.
+
+* Log-in as the main administrator
+* Go to the custom fields view. You can do so via the Admin/Custom Fields menu, or just typing /custom_fields/ on the url bar.
+* Select the "Projects" tab
+* Add a new custom field.
+* Choose the "list" type, and fill in the name and the list of values. 
+* Mark the custom field as Searchable
+* Save the new field
+
+That's it - a new filter should appear on the projects/index screen
+
+== Removing filters from the view
+
+By default, any fields created as above will be used as filters. If you wish to hide any searchable custom field of type "list" you can deactivate it on the plugin settings screen (Admin -> Plugins -> Configure)
+
+== Installation
+
+1. Copy the plugin directory into the vendor/plugins directory
+
+2. Start Redmine
+
+(This plugin does not require migrations)
+
+Installed plugins are listed and can be configured from 'Admin -> Plugins' screen.
+
+== Credits
+
+Development of this plugin was financed by the Open Hardware Repository - www.ohwr.org
