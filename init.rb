@@ -19,19 +19,9 @@ Dispatcher.to_prepare :featured_projects do
   require_dependency 'settings_controller'
   SettingsController.send(:include, RedmineProjectFiltering::Patches::SettingsControllerPatch)
 
-
-
-#  require_dependency 'welcome_controller'
-#  unless WelcomeController.included_modules.include? FeaturedProjects::Patches::WelcomeControllerPatch
-#    WelcomeController.send(:include, FeaturedProjects::Patches::WelcomeControllerPatch)
-#  end
-
 end
 
 # will not work on development mode
-
-
-
 
 Redmine::Plugin.register :redmine_project_filtering do
   name 'Redmine Project filtering plugin'
