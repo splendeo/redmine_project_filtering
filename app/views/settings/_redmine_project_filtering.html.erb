@@ -1,9 +1,11 @@
+<p><%= l(:project_filtering_info) %></p>
+
 <fieldset>
-  <%= content_tag(:legend, l(:project_filtering_text_configuration)) %>
+  <%= content_tag(:legend, l(:project_filtering_text_filters)) %>
   
   <% @project_custom_fields.each do |field| %>
     <p>
-    <% plugin_settings = @settings[:used_fields] %>
+    <% plugin_settings = @settings['used_fields'] %>
     <% dom_id = "settings[used_fields][#{field.id}]" %>
     <% checked = plugin_settings.present? && plugin_settings[field.id.to_s].present?  %>
     <%= check_box_tag dom_id, 1, checked %>

@@ -17,6 +17,7 @@ module RedmineProjectFiltering
         def calculate_custom_fields_usable_for_project_filtering
           if params[:id] == 'redmine_project_filtering'
             @project_custom_fields = CustomField.usable_for_project_filtering
+            @settings = @settings.blank? ? {'used_fields' => []} : @settings
           end
         end
 

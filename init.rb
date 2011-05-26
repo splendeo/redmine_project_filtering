@@ -32,9 +32,6 @@ Redmine::Plugin.register :redmine_project_filtering do
   description 'Adds filtering capabilities to the the project/index page'
   version '0.9.5'
 
-  settings({
-    :partial => 'settings/redmine_project_filtering',
-    :default => { 'used_fields' => {} }
-  })
+  settings :default => {'used_fields' => {}}, :partial => 'settings/redmine_project_filtering'
 
 end
