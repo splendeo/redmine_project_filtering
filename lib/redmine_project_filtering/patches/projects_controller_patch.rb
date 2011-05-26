@@ -32,7 +32,7 @@ module RedmineProjectFiltering
             format.js {
               calculate_filtered_projects
               render :update do |page|
-                page.replace_html 'projects', render_project_hierarchy_with_filtering(@projects, @custom_fields, @question)
+                page.replace_html 'projects', :partial => 'filtered_projects'
               end
             }
             format.atom {
@@ -46,21 +46,22 @@ module RedmineProjectFiltering
         private
         
         def calculate_filtered_projects
-          @projects = Project.visible
           
+          @question = (params[:q] || "").strip
           @custom_fields = params[:custom_fields] || {}
+          
+          @projects = Project.visible
 
           unless @custom_fields.empty?
             @projects = @projects.with_custom_values(params[:custom_fields])
           end
+          
+          @featured_projects = @projects.featured if Project.respond_to? :featured
+          @projects = @projects.not_featured if Project.respond_to? :not_featured
 
-          @question = params[:q] || ""
-          @question.strip!
-          if @question.length > 1
-            @projects = @projects.search(calculate_tokens(@question), nil, :all_words => true).first.sort_by(&:lft)
-          else
-            @projects = @projects.all(:order => 'lft')
-          end
+          @projects = @projects.search_by_question(@question)
+          @featured_projects = @featured_projects.search_by_question(@question) if @featured_projects
+
         end
 
       end

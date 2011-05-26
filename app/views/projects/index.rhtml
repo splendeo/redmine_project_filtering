@@ -38,7 +38,7 @@
 %>
 
 <div id="projects">
-<%= render_project_hierarchy_with_filtering(@projects, @custom_fields, @question) %>
+  <%= render :partial => 'filtered_projects' %>
 </div>
 
 <% if User.current.logged? %>

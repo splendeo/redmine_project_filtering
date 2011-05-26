@@ -16,7 +16,7 @@ module RedmineProjectFiltering
         def render_project_hierarchy_with_filtering(projects,custom_fields,question)
           s = []
           if projects.any?
-            tokens = calculate_tokens(question, custom_fields)
+            tokens = RedmineProjectFiltering.calculate_tokens(question, custom_fields)
             ancestors = []
             original_project = @project
             projects.each do |project|
@@ -62,18 +62,6 @@ module RedmineProjectFiltering
         end
         
         private
-        
-        def calculate_tokens(question, custom_fields=nil)
-          list = []
-          if custom_fields.present?
-            list << custom_fields.values
-          end
-          list << question if question.present?
-
-          tokens = list.join(' ').scan(%r{((\s|^)"[\s\w]+"(\s|$)|\S+)}).collect {|m| m.first.gsub(%r{(^\s*"\s*|\s*"\s*$)}, '')}
-          # tokens must be at least 2 characters long
-          tokens.select {|w| w.length > 1 }
-        end
         
         # copied from search_helper. This one doesn't escape html or limit the text length
         def highlight_tokens(text, tokens)

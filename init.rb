@@ -1,7 +1,8 @@
 require 'redmine'
 
-Dispatcher.to_prepare :featured_projects do
+Dispatcher.to_prepare :redmine_project_filtering do
 
+  require_dependency 'redmine_project_filtering'
   require_dependency 'redmine_project_filtering/with_custom_values'
 
   require_dependency 'projects_helper'

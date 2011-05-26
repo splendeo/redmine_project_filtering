@@ -1,0 +1,7 @@
+<% if @featured_projects && @featured_projects.any? %>
+  <div class="box featured_projects">
+    <h3 class="icon icon-featured"><%=l(:project_filtering_featured_projects_label) %></h3>
+    <%= render_project_hierarchy_with_filtering(@featured_projects, @custom_fields, @question) %>
+  </div>
+<% end %>
+<%= render_project_hierarchy_with_filtering(@projects, @custom_fields, @question) %>

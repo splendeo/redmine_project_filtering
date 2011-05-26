@@ -10,3 +10,5 @@ ul.filter_fields li {
   display: inline;
   margin: 0 10px 0 0;
 }
+
+.icon-featured     { background-image: url(../images/ribbon-16x16.png); }
