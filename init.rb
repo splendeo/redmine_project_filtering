@@ -29,7 +29,7 @@ Redmine::Plugin.register :redmine_project_filtering do
   url 'http://development.splendeo.es/projects/redm-project-filter'
   author_url 'http://www.splendeo.es'
   description 'Adds filtering capabilities to the the project/index page'
-  version '0.9'
+  version '0.9.5'
 
   settings({
     :partial => 'settings/redmine_project_filtering',
