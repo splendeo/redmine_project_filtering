@@ -57,7 +57,6 @@ module RedmineProjectFiltering
           end
           
           @featured_projects = @projects.featured if Project.respond_to? :featured
-          @projects = @projects.not_featured if Project.respond_to? :not_featured
 
           @projects = @projects.search_by_question(@question)
           @featured_projects = @featured_projects.search_by_question(@question) if @featured_projects
