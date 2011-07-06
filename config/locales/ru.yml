@@ -1,5 +1,5 @@
 # English strings go here
-en:
+ru:
   project_filtering_text_filters: "Активные фильтры"
   project_filtering_info: Используйте эту страницу чтобы деактивировать поля, которые вы бы не хотели фильтровать при поиске проектов
   project_filtering_q_label: "Текстовый поиск"
