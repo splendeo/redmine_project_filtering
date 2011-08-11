@@ -1,7 +1,19 @@
 <% if @featured_projects && @featured_projects.any? %>
-  <div class="box featured_projects">
-    <h3 class="icon icon-featured"><%=l(:project_filtering_featured_projects_label) %></h3>
-    <%= render_project_hierarchy_with_filtering(@featured_projects, @custom_fields, @question) %>
+
+  <div class="splitcontentleft">
+    <%= render_project_hierarchy_with_filtering(@projects, @custom_fields, @question) %>
   </div>
+
+  <div class="splitcontentright">
+    <h3 id="featured-projects-title"><%=l(:project_filtering_featured_projects_label) %></h3>
+    <div id="featured-projects-box" class="box">
+      <%= render_project_hierarchy_with_filtering(@featured_projects, @custom_fields, @question) %>
+    </div>
+  </div>
+
+<% else %>
+
+  <%= render_project_hierarchy_with_filtering(@projects, @custom_fields, @question) %>
+
 <% end %>
-<%= render_project_hierarchy_with_filtering(@projects, @custom_fields, @question) %>
+
