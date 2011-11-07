@@ -1,4 +1,5 @@
 require 'redmine'
+require 'dispatcher'
 
 Dispatcher.to_prepare :redmine_project_filtering do
 
