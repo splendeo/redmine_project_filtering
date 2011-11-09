@@ -13,20 +13,20 @@ module RedmineProjectFiltering
         end
 
       end
-      
+
       module InstanceMethods
 
         def calculate_custom_fields
           @custom_fields_used_for_project_filtering = CustomField.used_for_project_filtering
         end
-        
+
         def calculate_project_filtering_settings
           @project_filtering_settings = Setting[:plugin_redmine_project_filtering]
         end
-        
+
         def index_with_project_filtering
           respond_to do |format|
-            format.any(:html, :xml) { 
+            format.any(:html, :xml) {
               calculate_filtered_projects
             }
             format.js {
@@ -42,20 +42,20 @@ module RedmineProjectFiltering
             }
           end
         end
-        
+
         private
-        
+
         def calculate_filtered_projects
-          
+
           @question = (params[:q] || "").strip
           @custom_fields = params[:custom_fields] || {}
-          
+
           @projects = Project.visible
 
           unless @custom_fields.empty?
             @projects = @projects.with_custom_values(params[:custom_fields])
           end
-          
+
           @featured_projects = @projects.featured if Project.respond_to? :featured
 
           @projects = @projects.search_by_question(@question)
