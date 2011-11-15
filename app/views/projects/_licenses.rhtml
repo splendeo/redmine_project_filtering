@@ -1,0 +1,7 @@
+<p class='custom_field license'>
+  <%= label_tag :license_version_id, t(:label_license_plural) %>
+  <%= select_tag( :license_version_id, 
+        options_from_collection_for_select(@license_versions, :id, :title)
+      )
+  %>
+</p>

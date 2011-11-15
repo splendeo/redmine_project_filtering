@@ -20,8 +20,11 @@
       <p class='q'>
         <%= label_tag 'q', l('project_filtering_q_label') %>
         <%= text_field_tag 'q', @question, :size => 30, :id => 'search-input' %>
-      </p>
-      <%= render :partial => 'custom_field', :collection => @custom_fields_used_for_project_filtering %>
+        </p>
+        <% if license_plugin_detected? %>
+          <%= render :partial => 'licenses' %>
+        <% end %>
+        <%= render :partial => 'custom_field', :collection => @custom_fields_used_for_project_filtering %>
       <p class='buttons'><%= submit_tag( l(:button_send), :id => 'filter_button') -%></p>
     </div>
   </fieldset>

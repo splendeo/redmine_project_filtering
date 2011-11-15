@@ -9,7 +9,7 @@ module RedmineProjectFiltering
           unloadable
         end
       end
-      
+
       module ClassMethods
         def search_by_question(question)
           if question.length > 1
