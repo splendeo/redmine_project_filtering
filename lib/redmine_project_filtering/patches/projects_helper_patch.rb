@@ -35,7 +35,7 @@ module RedmineProjectFiltering
                   )
                 s << "<ul class='filter_fields'>"
                 if @project.respond_to? :license and @project.license.present? then
-                  s << "<li><b>#{t(:license_label)}:</b> #{link_to_license_version(@project.license) }</li>"
+                  s << "<li><b>#{t(:label_license)}:</b> #{link_to_license_version(@project.license) }</li>"
                 end
                 CustomField.usable_for_project_filtering.each do |field|
                   value_model = project.custom_value_for(field.id)

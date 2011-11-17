@@ -59,7 +59,7 @@ module RedmineProjectFiltering
         if license_plugin_detected?
           nil_license_version = OpenStruct.new(:id => nil, :title => "")
           @license_versions = [nil_license_version] + LicenseVersion.for_select.all
-          @projects = @projects.find_by_license_id(@license_version_id) if @license_version_id.present?
+          @projects = @projects.with_license_id(@license_version_id) if @license_version_id.present?
         end
 
         unless @custom_fields.empty?
