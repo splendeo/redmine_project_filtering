@@ -57,7 +57,8 @@ module RedmineProjectFiltering
         @projects = Project.visible
 
         if license_plugin_detected?
-          nil_license_version = OpenStruct.new(:id => nil, :title => "")
+          nil_license_version = OpenStruct.new(:id => "", :title => "")
+          nil_license_version.instance_eval('undef id')
           @license_versions = [nil_license_version] + LicenseVersion.for_select.all
           @projects = @projects.with_license_id(@license_version_id) if @license_version_id.present?
         end
