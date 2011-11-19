@@ -1,0 +1,7 @@
+# Bulgarian strings go here
+bg:
+  project_filtering_text_filters: "Активни филтри"
+  project_filtering_info: Изберете полетата, които да ползвате за филтриране на проектите.
+  project_filtering_q_label: "Търсене по дума или фраза"
+  project_filtering_featured_projects_label: "Избрани проекти"
+  button_send: "Изпращане"
