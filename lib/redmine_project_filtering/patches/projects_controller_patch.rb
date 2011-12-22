@@ -29,7 +29,7 @@ module RedmineProjectFiltering
 
       def index_with_project_filtering
         respond_to do |format|
-          format.any(:html, :xml) {
+          format.any(:html, :xml, :api) {
             calculate_filtered_projects
           }
           format.js {
