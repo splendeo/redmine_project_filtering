@@ -46,7 +46,8 @@ module RedmineProjectFiltering
                 s << "<div class='clear'></div>"
                 unless project.description.blank?
                   s << "<div class='wiki description'>"
-                  s << highlight_tokens(textilizable(project.short_description(30), :project => project), tokens)
+                  plain_txt = strip_tags(textilizable(project.short_description(30), :project => project, :headings => false))
+                  s << highlight_tokens(plain_txt, tokens)
                   s << "\n</div>"
                 end
                 s << "</div>"
