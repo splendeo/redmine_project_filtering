@@ -9,8 +9,10 @@ module RedmineProjectFiltering
         base.class_eval do
           unloadable
           named_scope( :used_for_project_filtering, lambda do |*args|
-            used_field_setting = Setting['plugin_redmine_project_filtering']['used_fields'] || {}
-            used_fields = used_field_setting.keys.collect(&:to_i)
+            plugin_settings = Setting['plugin_redmine_project_filtering']
+            used_field_setting = Setting['plugin_redmine_project_filtering'].present? ? plugin_settings['used_fields'] : {}
+            used_field_hash = used_field_setting.class == Hash ? used_field_setting : {}
+            used_fields = used_field_hash.keys.collect(&:to_i)
             { :conditions  => [ "custom_fields.type = 'ProjectCustomField' 
                                  AND custom_fields.field_format = 'list' 
                                  AND custom_fields.id IN (?)", used_fields ] }
