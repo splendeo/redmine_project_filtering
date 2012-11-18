@@ -29,11 +29,11 @@ end
 
 Redmine::Plugin.register :redmine_project_filtering do
   name 'Redmine Project filtering plugin'
-  author 'Enrique García Cota'
-  url 'http://development.splendeo.es/projects/redm-project-filter'
+  author 'Enrique García Cota, Francisco de Juan'
+  url 'https://github.com/splendeo/redmine_project_filtering'
   author_url 'http://www.splendeo.es'
   description 'Adds filtering capabilities to the the project/index page'
-  version '0.9.5'
+  version '0.9.6'
 
   settings :default => {'used_fields' => {}}, :partial => 'settings/redmine_project_filtering'
 
