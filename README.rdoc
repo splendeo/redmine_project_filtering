@@ -1,4 +1,4 @@
-== Redmine/Chiliproject Project Filtering Plugin
+== redmine/chiliproject Project Filtering Plugin
 
 This plugin adds a "filtering text box" on the projects/index screen.
 
@@ -16,7 +16,7 @@ Filters can be added via Custom Fields.
 * Go to the custom fields view. You can do so via the Admin/Custom Fields menu, or just typing /custom_fields/ on the url bar.
 * Select the "Projects" tab
 * Add a new custom field.
-* Choose the "list" type, and fill in the name and the list of values. 
+* Choose the "list" type, and fill in the name and the list of values.
 * Mark the custom field as Searchable
 * Save the new field
 
