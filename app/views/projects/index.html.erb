@@ -4,15 +4,12 @@
 <% end %>
 
 <div class="contextual">
-    <%= link_to(l(:label_project_new), {:controller => 'projects', :action => 'new'}, :class => 'icon icon-add') + ' |' if User.current.allowed_to?(:add_project, nil, :global => true) %>
-    <%= link_to(l(:label_issue_view_all), { :controller => 'issues' }) + ' |' if User.current.allowed_to?(:view_issues, nil, :global => true) %>
-    <%= link_to(l(:label_overall_spent_time), { :controller => 'timelog' }) + ' |' if User.current.allowed_to?(:view_time_entries, nil, :global => true) %>
-    <%= link_to l(:label_overall_activity), { :controller => 'activities', :action => 'index' }%>
+    <%= render_project_action_links %>
 </div>
 
 <h2><%=l(:label_project_plural)%></h2>
 
-<% form_tag('projects', :method => :get, :id => :project_filtering) do %>
+<%= form_tag('projects', :method => :get, :id => :project_filtering) do %>
 
   <fieldset id="filters" class="collapsible">
     <legend onclick="toggleFieldset(this);"><%= l(:label_filter_plural) %></legend>
@@ -31,14 +28,15 @@
 
 <% end %>
 
-<%= javascript_tag "Field.focus('search-input');" %>
-<%= javascript_tag "$('filter_button').hide();" %>
-<%= observe_form( :project_filtering,
-  :frequency => 0.5,
-  :url => { :controller => :projects, :action => :index, :format => :js },
-  :method => :get
-  )
-%>
+<%= javascript_tag "$('#search-input').focus();" %>
+<%= javascript_tag "$('#filter_button').hide();" %>
+<%= javascript_tag do %>
+    $(document).ready(function() {
+        $(this).delegate('select', 'change', function() {
+            $(this).closest('form').submit();
+        });
+    });
+<% end %>
 
 <div id="projects">
   <%= render :partial => 'filtered_projects' %>
@@ -54,6 +52,14 @@
 
 <% other_formats_links do |f| %>
 	<%= f.link_to 'Atom', :url => {:key => User.current.rss_key} %>
+<% end %>
+
+<% content_for :sidebar do %>
+  <%= form_tag({}, :method => :get) do %>
+    <h3><%= l(:label_project_plural) %></h3>
+    <label for="closed"><%= check_box_tag 'closed', 1, params[:closed] %> <%= l(:label_show_closed_projects) %></label>
+    <p><%= submit_tag l(:button_apply), :class => 'button-small', :name => nil %></p>
+  <% end %>
 <% end %>
 
 <% html_title(l(:label_project_plural)) -%>

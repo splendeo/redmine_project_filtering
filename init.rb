@@ -1,9 +1,18 @@
 # encoding: utf-8
 
-require 'redmine'
-require 'dispatcher'
+Rails.logger.info 'Starting Project Filter Plugin for Redmine'
 
-Dispatcher.to_prepare :redmine_project_filtering do
+require 'redmine'
+if Rails::VERSION::MAJOR < 3
+  require 'dispatcher'
+  object_to_prepare = Dispatcher
+else
+  object_to_prepare = Rails.configuration
+  # if redmine plugins were railties:
+  # object_to_prepare = config
+end
+
+object_to_prepare.to_prepare do
 
   require_dependency 'redmine_project_filtering'
   require_dependency 'redmine_project_filtering/with_custom_values'
