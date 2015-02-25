@@ -54,7 +54,11 @@ module RedmineProjectFiltering
         @custom_fields = params[:custom_fields] || {}
         @license_version_id = params[:license_version_id]
 
-        @projects = Project.visible
+        scope = Project
+        unless params[:closed]
+          scope = scope.active
+        end
+        @projects = scope.visible.order('lft').all
 
         if license_plugin_detected?
           nil_license_version = OpenStruct.new(:id => "", :title => "")
