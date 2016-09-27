@@ -56,7 +56,7 @@ module RedmineProjectFiltering
               ancestors.size.times{ s << "</li></ul>" }
               @project = original_project
             end
-            s.join "\n"
+            s.join("\n").html_safe
           end
 
           private

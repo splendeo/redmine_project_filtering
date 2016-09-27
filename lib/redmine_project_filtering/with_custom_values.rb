@@ -7,7 +7,7 @@ module RedmineProjectFiltering
     def self.included(base) # :nodoc:
 
       base.class_eval do
-        named_scope( :with_custom_values,
+        scope( :with_custom_values,
           lambda do |*args|
             fields = args.first
             

@@ -1,9 +1,9 @@
 <p class='custom_field custom_field_<%= custom_field.id %>'>
   <%= label_tag 'custom_field.name', l(custom_field.name, :default => custom_field.name) %>
-  <%= select_tag("custom_fields[#{custom_field.id}]", 
+  <%= select_tag("custom_fields[#{custom_field.id}]",
         options_from_collection_for_select(
-          [nil] + custom_field.possible_values, 
-          'to_s', 
+          [nil] + custom_field.possible_values,
+          'to_s',
           'to_s',
           @custom_fields[custom_field.id.to_s]
         )
